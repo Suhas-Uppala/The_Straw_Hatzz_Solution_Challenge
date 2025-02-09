@@ -5,3 +5,5 @@ Co-owners:
 - Rishit
 - Khyathi
 - Naveen
+
+This project is built as a part of the GDGC solution challenge. 
