@@ -9,20 +9,6 @@ class RiskPredictionScreen extends StatefulWidget {
   _RiskPredictionScreenState createState() => _RiskPredictionScreenState();
 }
 
-Widget _buildTextField(TextEditingController controller, String label) {
-  return Padding(
-    padding: const EdgeInsets.symmetric(vertical: 8.0),
-    child: TextField(
-      controller: controller,
-      decoration: InputDecoration(
-        labelText: label,
-        border: OutlineInputBorder(),
-      ),
-      keyboardType: TextInputType.number,
-    ),
-  );
-}
-
 class _RiskPredictionScreenState extends State<RiskPredictionScreen> {
   final TextEditingController trainingLoadController = TextEditingController();
   final TextEditingController hrvController = TextEditingController();
@@ -46,6 +32,8 @@ class _RiskPredictionScreenState extends State<RiskPredictionScreen> {
   ];
   final Map<String, List<int>> pastData = {};
 
+  Map<String, String?> fieldErrors = {};
+
   @override
   void initState() {
     super.initState();
@@ -66,7 +54,87 @@ class _RiskPredictionScreenState extends State<RiskPredictionScreen> {
     }
   }
 
+  String? validateTrainingLoad(String? value) {
+    if (value == null || value.isEmpty) return "Required field";
+    int? load = int.tryParse(value);
+    if (load == null) return "Must be a number";
+    if (load < 0 || load > 100) return "Must be between 0 and 100";
+    return null;
+  }
+
+  String? validateHRV(String? value) {
+    if (value == null || value.isEmpty) return "Required field";
+    int? hrv = int.tryParse(value);
+    if (hrv == null) return "Must be a number";
+    if (hrv < 20 || hrv > 200) return "Must be between 20 and 200 ms";
+    return null;
+  }
+
+  String? validateAcceleration(String? value) {
+    if (value == null || value.isEmpty) return "Required field";
+    double? acc = double.tryParse(value);
+    if (acc == null) return "Must be a number";
+    if (acc < 0 || acc > 15) return "Must be between 0 and 15 m/s²";
+    return null;
+  }
+
+  String? validatePreviousInjury(String? value) {
+    if (value == null || value.isEmpty) return "Required field";
+    int? injury = int.tryParse(value);
+    if (injury == null) return "Must be 0 or 1";
+    if (injury != 0 && injury != 1) return "Must be 0 or 1";
+    return null;
+  }
+
+  String? validateSleepHours(String? value) {
+    if (value == null || value.isEmpty) return "Required field";
+    double? sleep = double.tryParse(value);
+    if (sleep == null) return "Must be a number";
+    if (sleep < 0 || sleep > 24) return "Must be between 0 and 24";
+    return null;
+  }
+
+  String? validateHydration(String? value) {
+    if (value == null || value.isEmpty) return "Required field";
+    int? hydration = int.tryParse(value);
+    if (hydration == null) return "Must be a number";
+    if (hydration < 0 || hydration > 100) return "Must be between 0 and 100%";
+    return null;
+  }
+
+  String? validateFatigue(String? value) {
+    if (value == null || value.isEmpty) return "Required field";
+    int? fatigue = int.tryParse(value);
+    if (fatigue == null) return "Must be a number";
+    if (fatigue < 1 || fatigue > 10) return "Must be between 1 and 10";
+    return null;
+  }
+
   void predictRisk() {
+    Map<String, String?> errors = {
+      'training': validateTrainingLoad(trainingLoadController.text),
+      'hrv': validateHRV(hrvController.text),
+      'acceleration': validateAcceleration(accelerationController.text),
+      'injury': validatePreviousInjury(previousInjuryController.text),
+      'sleep': validateSleepHours(sleepHoursController.text),
+      'hydration': validateHydration(hydrationLevelController.text),
+      'fatigue': validateFatigue(fatigueScoreController.text),
+    };
+
+    setState(() {
+      fieldErrors = errors;
+    });
+
+    if (errors.values.any((error) => error != null)) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Please correct the errors in the form'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
+    }
+
     int trainingLoad = int.tryParse(trainingLoadController.text) ?? 0;
     int hrv = int.tryParse(hrvController.text) ?? 0;
     double acceleration = double.tryParse(accelerationController.text) ?? 0.0;
@@ -93,6 +161,57 @@ class _RiskPredictionScreenState extends State<RiskPredictionScreen> {
     });
   }
 
+  Widget _buildTextField(
+    TextEditingController controller,
+    String label, {
+    IconData? icon,
+    String? Function(String?)? validator,
+    String? errorText,
+    String? helperText,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10.0),
+      child: TextField(
+        controller: controller,
+        decoration: InputDecoration(
+          labelText: label,
+          prefixIcon:
+              icon != null ? Icon(icon, color: Colors.blueAccent) : null,
+          filled: true,
+          fillColor: Colors.grey.withOpacity(0.1),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide(color: Colors.grey.shade400),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide(color: Colors.blueAccent, width: 2),
+          ),
+          errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide(color: Colors.red, width: 1),
+          ),
+          focusedErrorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide(color: Colors.red, width: 2),
+          ),
+          labelStyle: TextStyle(color: Colors.grey[600]),
+          errorText: errorText,
+          helperText: helperText,
+          contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        ),
+        keyboardType: TextInputType.number,
+        onChanged: (value) {
+          if (validator != null) {
+            setState(() {
+              validator(value);
+            });
+          }
+        },
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -105,19 +224,69 @@ class _RiskPredictionScreenState extends State<RiskPredictionScreen> {
         padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildTextField(trainingLoadController, "Training Load"),
-              _buildTextField(hrvController, "HRV (ms)"),
-              _buildTextField(accelerationController, "Acceleration (m/s²)"),
+              Text(
+                "Training Metrics",
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blueAccent,
+                ),
+              ),
+              SizedBox(height: 10),
+              _buildTextField(
+                trainingLoadController,
+                "Training Load",
+                icon: Icons.fitness_center,
+                errorText: fieldErrors['training'],
+                helperText: "Enter a value between 0 and 100",
+              ),
+              _buildTextField(
+                hrvController,
+                "HRV (ms)",
+                icon: Icons.favorite,
+                errorText: fieldErrors['hrv'],
+                helperText: "Enter a value between 20 and 200 ms",
+              ),
+              _buildTextField(accelerationController, "Acceleration (m/s²)",
+                  icon: Icons.speed),
+              SizedBox(height: 20),
+              Text(
+                "Health Indicators",
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blueAccent,
+                ),
+              ),
+              SizedBox(height: 10),
               _buildTextField(previousInjuryController,
-                  "Previous Injury (1 for Yes, 0 for No)"),
-              _buildTextField(sleepHoursController, "Sleep Hours"),
-              _buildTextField(hydrationLevelController, "Hydration Level (%)"),
-              _buildTextField(fatigueScoreController, "Fatigue Score (1-10)"),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: predictRisk,
-                child: const Text("Predict Risk"),
+                  "Previous Injury (1 for Yes, 0 for No)",
+                  icon: Icons.medical_services),
+              _buildTextField(sleepHoursController, "Sleep Hours",
+                  icon: Icons.nightlight_round),
+              _buildTextField(hydrationLevelController, "Hydration Level (%)",
+                  icon: Icons.water_drop),
+              _buildTextField(fatigueScoreController, "Fatigue Score (1-10)",
+                  icon: Icons.battery_alert),
+              SizedBox(height: 30),
+              SizedBox(
+                width: double.infinity,
+                height: 50,
+                child: ElevatedButton(
+                  onPressed: predictRisk,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blueAccent,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                  child: const Text(
+                    "Predict Risk",
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                ),
               ),
               const SizedBox(height: 20),
               if (predictionResult.isNotEmpty)

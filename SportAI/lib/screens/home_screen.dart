@@ -161,7 +161,7 @@ class HomeScreen extends StatelessWidget {
 
   Widget _buildStatCard(String title, String value, Color color) {
     return Card(
-      color: Colors.white,
+      color: color.withOpacity(0.1), // Using a light shade of the status color
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       child: Padding(
         padding: EdgeInsets.all(16),
