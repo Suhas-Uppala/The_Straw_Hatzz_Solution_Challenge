@@ -1,0 +1,11 @@
+### Check if detection is running
+GET http://localhost:9000/status
+Accept: application/json
+
+### Start exercise detection
+POST http://localhost:9000/start
+Content-Type: application/json
+
+### Stop exercise detection
+POST http://localhost:9000/stop
+Content-Type: application/json

@@ -1,0 +1,28 @@
+name: sport_ai
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: ^3.6.2
+
+dependencies:
+  flutter:
+    sdk: flutter
+  fl_chart: ^0.63.0
+  table_calendar: ^3.2.0
+  http: ^1.1.0
+  animated_text_kit: ^4.2.2
+  markdown_widget: ^2.3.2+6
+  flutter_markdown: ^0.6.10
+  flutter_svg: ^2.0.7
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - lib/assets/SportAIfavicon.svg

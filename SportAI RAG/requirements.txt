@@ -1,0 +1,12 @@
+streamlit
+langchain
+faiss-cpu
+requests
+python-dotenv
+google-generativeai
+langchain-community
+sentence-transformers
+numpy==1.26.4
+transformers
+fastapi
+uvicorn

@@ -1,0 +1,30 @@
+--- Athlete Profile ---
+ID: P001
+Name: Aman Verma
+Age: 26
+Sport: Weightlifting
+Country: India
+Personal Best: 180 kg (Clean & Jerk)
+Training Hours/Week: 16
+Average Heart Rate: 82 BPM
+Calories Burnt per Session: 800 kcal
+Injury History: Wrist strain (2021)
+Special Focus: Strength building, lifting technique improvement, and injury prevention.
+
+Current Fitness Regime:
+    - Warm-up: 10 minutes of light cardio and dynamic stretches
+    - Main Session: 
+         • Compound exercises (squats, deadlifts, bench press)
+         • Accessory movements (shoulder press, rows)
+         • Technique drills with moderate weights for form correction
+    - Cool-Down: 10 minutes of static stretching and foam rolling
+
+Nutrition Plan:
+    - Pre-Workout: Carbohydrate-rich snack (e.g., banana or oatmeal) 30 minutes before training
+    - Post-Workout: High-protein meal with lean meats, legumes, and vegetables within 1 hour after training
+    - Daily Diet: Balanced meals with lean protein, whole grains, healthy fats, and plenty of water
+
+Goals:
+    - Increase Clean & Jerk by 5 kg over the next 6 months
+    - Enhance overall strength and muscle endurance
+    - Improve recovery time through optimized nutrition and recovery protocols

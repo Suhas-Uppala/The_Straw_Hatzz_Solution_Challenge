@@ -1,0 +1,6 @@
+opencv-python
+opencv-contrib-python
+mediapipe
+playsound==1.2.2
+fastapi
+uvicorn
