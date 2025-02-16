@@ -194,7 +194,7 @@ pytest
 
 ## Co-owners
 
-### [Rishit](https://github.com/rishitsura)
 ### [Suhas](https://github.com/Suhas-Uppala)
+### [Rishit](https://github.com/rishitsura)
 ### [Khyathi](https://github.com/khyathi23)
 ### [Naveen](https://github.com/T-Naveen-2308)
