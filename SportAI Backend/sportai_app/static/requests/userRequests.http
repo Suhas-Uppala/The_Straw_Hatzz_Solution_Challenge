@@ -1,0 +1,36 @@
+### Read User
+GET http://localhost:5000/api/user/account
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOjEsImV4cCI6MTcyMzIxNDQ3N30.D3ySBw81ZegaX9bAZKIEPtRr2BAkK3WHPbUFhrp5DLg
+
+### Read Statistics
+GET http://localhost:5000/api/user/stats
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOjEsImV4cCI6MTcyMzIxNDQ3N30.D3ySBw81ZegaX9bAZKIEPtRr2BAkK3WHPbUFhrp5DLg
+
+### Update User - Edit Details
+POST http://localhost:5000/api/user/account
+Content-Type: application/json
+Authorization: Bearer token
+
+{
+    "name": "Library User",
+    "username": "library_user",
+    "email": "naveentummala2308@gmail.com",
+    "password": "LibraryUser@2024"
+}
+
+### Update User - Change Password
+PUT http://localhost:5000/api/user/account
+Authorization: Bearer token
+
+{
+    "current_password": "LibraryUser@2024",
+    "new_password": "LibraryUser@2024"
+}
+
+### Logout User
+GET http://localhost:5000/api/user/logout
+Authorization: Bearer token
+
+### Delete User
+DELETE http://localhost:5000/api/user/account
+Authorization: Bearer token

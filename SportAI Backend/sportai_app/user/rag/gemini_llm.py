@@ -1,6 +1,7 @@
 from langchain.llms.base import LLM
 from typing import Optional, List
-from gemini_api import query_gemini
+from .gemini_api import query_gemini
+
 
 class GeminiLLM(LLM):
     def __init__(self, callbacks=None):

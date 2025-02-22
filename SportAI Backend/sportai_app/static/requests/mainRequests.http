@@ -1,0 +1,31 @@
+### Create User
+POST http://localhost:5000/api/main/register
+Content-Type: application/json
+
+{
+    "name": "Naveen",
+    "username": "naveen",
+    "email": "naveentummala2308@gmail.com",
+    "password": "SportAI@2025",
+    "phone": "6301516021",
+    "gender": "male",
+    "dob": "2004-08-23"
+}
+
+### Login Librarian
+POST http://localhost:5000/api/main/login
+Content-Type: application/json
+
+{
+    "identifier": "naveen",
+    "password": "SportAI@2025"
+}
+
+### Login User
+POST http://localhost:5000/api/main/login
+Content-Type: application/json
+
+{
+    "username": "library_user",
+    "password": "LibraryUser@2024"
+}

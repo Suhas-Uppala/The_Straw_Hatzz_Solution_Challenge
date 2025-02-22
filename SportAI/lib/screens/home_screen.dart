@@ -27,12 +27,6 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Welcome back, John!",
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-            SizedBox(height: 10),
-            Text("Track & Field Athlete",
-                style: TextStyle(fontSize: 16, color: Colors.grey)),
-            SizedBox(height: 20),
             Card(
               color: Colors.indigo,
               shape: RoundedRectangleBorder(
@@ -133,26 +127,7 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(height: 20),
-            // Centered and larger Logout button as a normal button at end of content
-            Center(
-              child: SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => AuthScreen()),
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.symmetric(vertical: 18),
-                    textStyle: TextStyle(fontSize: 18),
-                  ),
-                  child: Text("Logout"),
-                ),
-              ),
-            ),
+            SizedBox(height: 20), // Keep some bottom padding
           ],
         ),
       ),

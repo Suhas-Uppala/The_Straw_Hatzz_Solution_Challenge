@@ -1,6 +1,5 @@
 --- Athlete Profile ---
-ID: P001
-Name: Aman Verma
+Name: Naveen
 Age: 26
 Sport: Weightlifting
 Country: India

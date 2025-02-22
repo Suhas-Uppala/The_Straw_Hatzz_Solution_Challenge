@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+        crossorigin="anonymous"
+    />
+    <style>
+        h2, table {
+            page-break-before: avoid;
+            page-break-after: avoid;
+            page-break-inside: avoid;
+        }
+        h2 {
+            margin-top: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .page-break {
+            page-break-before: always;
+        }
+        .page-title {
+            margin-bottom: 1rem;
+        }
+        .page-image {
+            width: 100%;
+            height: 80vh;
+            object-fit: contain;
+            border-radius: 7px;
+        }
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+        }
+        .container {
+            max-width: 100%;
+            padding-left: 0;
+            padding-right: 0;
+        }
+    </style>
+    <title>Monthly Report</title>
+</head>
+<body>
+    <h1 class="text-center">Monthly Report</h1>
+    <p class="text-center">Date: {{ report_date }}</p>
+    <h2 class="text-center">General Statistics</h2>
+    <div class="container mt-2">
+        <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th class="text-center">Statistic</th>
+                    <th class="text-center">Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for card in paths.cards %}
+                <tr>
+                    <td class="text-center">{{ card[0] }}</td>
+                    <td class="text-center">{{ card[1] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="page-break container">
+        <h3 class="text-center page-title">Books Issued</h3>
+        <img
+            src="http://localhost:5000/static/user/stats/{{ paths.section_bar_path }}"
+            class="page-image mx-auto d-block"
+        />
+    </div>
+    <div class="page-break container">
+        <h3 class="text-center page-title">Section Distribution</h3>
+        <img
+            src="http://localhost:5000/static/user/stats/{{ paths.section_pie_path }}"
+            class="page-image mx-auto d-block"
+        />
+    </div>
+    <div class="page-break container">
+        <h3 class="text-center page-title">Requests</h3>
+        <img
+            src="http://localhost:5000/static/user/stats/{{ paths.status_bar_path }}"
+            class="page-image mx-auto d-block"
+        />
+    </div>
+    <div class="page-break container">
+        <h3 class="text-center page-title">Status Distribution</h3>
+        <img
+            src="http://localhost:5000/static/user/stats/{{ paths.status_pie_path }}"
+            class="page-image mx-auto d-block"
+        />
+    </div>
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"
+    ></script>
+</body>
+</html>

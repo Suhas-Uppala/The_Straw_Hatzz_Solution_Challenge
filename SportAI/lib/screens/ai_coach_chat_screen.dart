@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
+import '../services/auth_service.dart'; // Add this import
 
 class AICoachChatScreen extends StatefulWidget {
   const AICoachChatScreen({Key? key}) : super(key: key);
@@ -13,10 +14,8 @@ class AICoachChatScreen extends StatefulWidget {
 
 class _AICoachChatScreenState extends State<AICoachChatScreen> {
   final TextEditingController _controller = TextEditingController();
-  final ScrollController _inputScrollController =
-      ScrollController();
-  final List<Map<String, String>> _messages =
-      [];
+  final ScrollController _inputScrollController = ScrollController();
+  final List<Map<String, String>> _messages = [];
   bool _isLoading = false;
   bool _animationDone = true;
 
@@ -27,13 +26,18 @@ class _AICoachChatScreenState extends State<AICoachChatScreen> {
       _messages.add({'role': 'user', 'content': message});
       _isLoading = true;
     });
-    final url = Uri.parse("http://localhost:8000/chat");
+
     try {
+      final token = await AuthService.getToken();
       final response = await http.post(
-        url,
-        headers: {"Content-Type": "application/json"},
+        Uri.parse('http://localhost:5000/api/user/chat'),
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer $token",
+        },
         body: json.encode({"query": message}),
       );
+
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
         setState(() {
@@ -41,21 +45,25 @@ class _AICoachChatScreenState extends State<AICoachChatScreen> {
           _messages.add({'role': 'assistant', 'content': data['response']});
         });
       } else {
+        final errorData = json.decode(response.body);
         setState(() {
           _animationDone = false;
           _messages.add({
             'role': 'assistant',
-            'content': "Error: ${response.statusCode}"
+            'content': errorData['error'] ?? "Error: ${response.statusCode}"
           });
         });
       }
     } catch (e) {
       setState(() {
         _animationDone = false;
-        _messages
-            .add({'role': 'assistant', 'content': "Failed to fetch response"});
+        _messages.add({
+          'role': 'assistant',
+          'content': "Failed to connect to the server. Please try again."
+        });
       });
     }
+
     setState(() {
       _isLoading = false;
       _controller.clear();
@@ -136,8 +144,7 @@ class _AICoachChatScreenState extends State<AICoachChatScreen> {
                                   color: Colors.black87,
                                   fontSize: 16,
                                 ),
-                                speed: const Duration(
-                                    milliseconds: 10),
+                                speed: const Duration(milliseconds: 10),
                               )
                             ],
                             isRepeatingAnimation: false,
@@ -198,8 +205,7 @@ class _AICoachChatScreenState extends State<AICoachChatScreen> {
                       scrollDirection: Axis.vertical,
                       child: ConstrainedBox(
                         constraints: const BoxConstraints(
-                          maxHeight:
-                              150,
+                          maxHeight: 150,
                         ),
                         child: TextField(
                           controller: _controller,

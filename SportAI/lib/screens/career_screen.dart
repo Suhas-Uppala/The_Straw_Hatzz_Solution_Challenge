@@ -33,12 +33,14 @@ class _CareerScreenState extends State<CareerScreen> {
             children: [
               _buildAppBar(),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 16.0, vertical: 12.0),
                 child: _buildTabs(),
               ),
               Expanded(
                 child: SingleChildScrollView(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 16.0, vertical: 8.0),
                   child: _buildContent(),
                 ),
               ),
@@ -60,7 +62,12 @@ class _CareerScreenState extends State<CareerScreen> {
         ),
       ),
       child: Row(
-        children: const [
+        children: [
+          IconButton(
+            icon: Icon(Icons.arrow_back, color: Colors.white),
+            onPressed: () => Navigator.pop(context),
+          ),
+          SizedBox(width: 8),
           Icon(Icons.work, color: Colors.white, size: 28),
           SizedBox(width: 8.0),
           Text(
@@ -87,7 +94,9 @@ class _CareerScreenState extends State<CareerScreen> {
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             decoration: BoxDecoration(
-              color: selectedTab == idx ? Colors.blueGrey[700] : Colors.transparent,
+              color: selectedTab == idx
+                  ? Colors.blueGrey[700]
+                  : Colors.transparent,
               borderRadius: BorderRadius.circular(20),
               border: Border.all(color: Colors.white),
             ),
@@ -125,7 +134,8 @@ class _CareerScreenState extends State<CareerScreen> {
       children: [
         _buildCard(
           title: 'AI Career Analysis',
-          subtitle: 'Your performance metrics indicate strong growth potential.',
+          subtitle:
+              'Your performance metrics indicate strong growth potential.',
           footer: 'Updated Today',
         ),
         const SizedBox(height: 16),
@@ -146,7 +156,10 @@ class _CareerScreenState extends State<CareerScreen> {
       children: [
         const Text(
           'Core Competencies',
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.lightBlueAccent),
+          style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Colors.lightBlueAccent),
         ),
         const SizedBox(height: 12),
         _buildProgressBar('Sprint Speed', 0.95),
@@ -162,7 +175,10 @@ class _CareerScreenState extends State<CareerScreen> {
       children: [
         const Text(
           'Opportunities',
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.lightBlueAccent),
+          style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Colors.lightBlueAccent),
         ),
         const SizedBox(height: 12),
         _buildOpportunityCard(
@@ -187,7 +203,10 @@ class _CareerScreenState extends State<CareerScreen> {
       children: [
         const Text(
           'Network',
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.lightBlueAccent),
+          style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Colors.lightBlueAccent),
         ),
         const SizedBox(height: 12),
         _buildNetworkCard('John Doe', 'Coach & Mentor'),
@@ -219,7 +238,9 @@ class _CareerScreenState extends State<CareerScreen> {
         children: [
           Text(title,
               style: const TextStyle(
-                  fontSize: 18, fontWeight: FontWeight.bold, color: Colors.lightBlueAccent)),
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.lightBlueAccent)),
           const SizedBox(height: 8),
           Text(subtitle,
               style: TextStyle(fontSize: 16, color: Colors.grey[300])),
@@ -271,8 +292,7 @@ class _CareerScreenState extends State<CareerScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(label,
-              style: TextStyle(fontSize: 16, color: Colors.grey[300])),
+          Text(label, style: TextStyle(fontSize: 16, color: Colors.grey[300])),
           const SizedBox(height: 4),
           ClipRRect(
             borderRadius: BorderRadius.circular(8),

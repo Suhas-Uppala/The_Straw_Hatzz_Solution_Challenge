@@ -14,6 +14,7 @@ class HealthScreen extends StatelessWidget {
           style: TextStyle(color: Colors.white),
         ),
         centerTitle: true,
+        automaticallyImplyLeading: false, // Remove default back button
         backgroundColor: Colors.transparent,
         elevation: 0,
         flexibleSpace: Container(
@@ -203,7 +204,9 @@ class HealthScreen extends StatelessWidget {
             Text(
               value,
               style: const TextStyle(
-                  fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
             ),
             const SizedBox(height: 8),
             Text(
@@ -242,7 +245,8 @@ class HealthScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildDeviceCard(String name, String status, IconData icon, Color color) {
+  Widget _buildDeviceCard(
+      String name, String status, IconData icon, Color color) {
     return Card(
       color: Colors.grey[900],
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),

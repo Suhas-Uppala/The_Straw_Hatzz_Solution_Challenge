@@ -1,6 +1,0 @@
-POST http://localhost:8000/chat
-Content-Type: application/json
-
-{
-    "query": "Based on my current data what would you suggest me to be more healthy?"
-}
