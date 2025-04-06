@@ -113,5 +113,5 @@ class DeleteAccountForm(FlaskForm):
 class ChatForm(FlaskForm):
     class Meta:
         csrf = False
-
+    
     query = StringField("Query", validators=[DataRequired()])

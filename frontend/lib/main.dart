@@ -11,8 +11,24 @@ import 'screens/career_screen.dart';
 import 'screens/account_screen.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../services/auth_service.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  if (kIsWeb) {
+    await Firebase.initializeApp(
+        options: FirebaseOptions(
+            apiKey: "AIzaSyClx7cmE2U8pHvQhm-SzGDJhdS9KxwRL44",
+            authDomain: "sport-ai-f5bee.firebaseapp.com",
+            projectId: "sport-ai-f5bee",
+            storageBucket: "sport-ai-f5bee.firebasestorage.app",
+            messagingSenderId: "55371993227",
+            appId: "1:55371993227:web:88260eb699b24f4070448e",
+            measurementId: "G-MEZ80XB0ME"));
+  } else {
+    await Firebase.initializeApp();
+  }
   runApp(SportAIApp());
 }
 

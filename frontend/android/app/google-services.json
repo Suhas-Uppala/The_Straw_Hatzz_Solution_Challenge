@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "55371993227",
+    "project_id": "sport-ai-f5bee",
+    "storage_bucket": "sport-ai-f5bee.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:55371993227:android:7b4eabca25d221fd70448e",
+        "android_client_info": {
+          "package_name": "com.example.sport_ai"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_jJrcR4hMkXzKWBmL890UUvm71oihJnk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
